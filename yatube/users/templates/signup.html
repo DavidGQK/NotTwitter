@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Зарегистрироваться{% endblock %}
+{% block content %}
+{# загружаем фильтр #}
+{% load user_filters %}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 p-5">
+        <div class="card">
+            <div class="card-header">Зарегистрироваться</div>
+            <div class="card-body">
+                
+              {% for error in form.errors %}
+                  <div class="alert alert-danger" role="alert">
+                      {{ error|escape }}
+                  </div>
+                {% endfor %}
+
+                <form method="post" action="{% url 'signup' %}">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div class="form-group row" aria-required={% if field.field.required %}"true"{% else %}"false"{% endif %}>
+                                <label for="{{ field.id_for_label }}" class="col-md-4 col-form-label text-md-right">{{ field.label }}{% if field.field.required %}<span class="required">*</span>{% endif %}</label>
+                                <div class="col-md-6">
+
+                                    {# подключаем фильтр и указываем класс #}
+                                    {{ field|addclass:"form-control" }}
+
+                                    {% if field.help_text %}
+                                    <small id="{{ field.id_for_label }}-help" class="form-text text-muted">{{ field.help_text|safe }}</small>
+                                    {% endif %}
+                                </div>                
+                        </div>
+                    {% endfor %}
+
+                    <div class="col-md-6 offset-md-4">              
+                            <button type="submit" class="btn btn-primary">
+                                Зарегистрироваться
+                            </button>
+                    </div>
+                </form>
+            </div> <!-- card body -->
+        </div> <!-- card -->
+    </div> <!-- col -->
+</div> <!-- row -->
+
+{% endblock %}
