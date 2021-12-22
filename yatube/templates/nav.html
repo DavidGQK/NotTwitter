@@ -1,9 +1,9 @@
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-light" style="background-color: rgb(201, 230, 248);">
     <a class="navbar-brand" href="/"><span style="color:red">Ya</span>tube</a>
     <nav class="my-2 my-md-0 mr-md-3">
         {% if user.is_authenticated %}
-        <a class="p-2 btn btn-primary" href="{% url 'new_post' %}">Добавить запись</a>
-        Пользователь: {{ user.username }}.
+        <a class="p-2 text-dark" href="{% url 'new_post' %}">Новая запись</a>
+        Пользователь: <a href="/../{{ user.username }}">{{ user.username }}</a>.
         <a class="p-2 text-dark" href="{% url 'password_change' %}">Изменить пароль</a>
         <a class="p-2 text-dark" href="{% url 'logout' %}">Выйти</a>
         {% else %}

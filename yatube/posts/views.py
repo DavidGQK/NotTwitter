@@ -4,24 +4,48 @@ from .models import Post, Group
 from .forms import PostForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.contrib.auth import get_user_model
 
 
-# def profile(request, username):
-#         # тут тело функции
-#         return render(request, 'profile.html', {})
+User = get_user_model()
+
+
+def profile(request, username):
+    profile = get_object_or_404(User, username=username)
+    post_list = Post.objects.filter(author = profile).order_by('-pub_date').all()
+    paginator = Paginator(post_list, 10)
+    page_number = request.GET.get('page')
+    posts_count = post_list.count()
+    page = paginator.get_page(page_number)
+    context = {'profile': profile, 'page': page, 'paginator': paginator, 'posts_count': posts_count}
+    return render(request, "profile.html", context)
  
  
-# def post_view(request, username, post_id):
-#         # тут тело функции
-#         return render(request, 'post.html', {})
+def post_view(request, username, post_id):
+    profile = get_object_or_404(User, username=username)
+    post = get_object_or_404(Post, pk=post_id)
+    post_list = Post.objects.filter(author = profile).order_by('-pub_date').all()
+    posts_count = post_list.count()
+    context = {'profile': profile, 'post': post, 'posts_count': posts_count}
+    return render(request, "post.html", context)
 
 
-# def post_edit(request, username, post_id):
-#         # тут тело функции. Не забудьте проверить, 
-#         # что текущий пользователь — это автор записи.
-#         # В качестве шаблона страницы редактирования укажите шаблон создания новой записи
-#         # который вы создали раньше (вы могли назвать шаблон иначе)
-#         return render(request, 'post_new.html', {})
+def post_edit(request, username, post_id):
+    if request.user.username != username:
+        return redirect(f'/{username}/{post_id}')
+
+    title = "Редактировать запись"
+    btn_caption = "Сохранить"
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            n_post = form.save(commit=False)
+            n_post.author = request.user
+            n_post.save()
+            return redirect(f'/{username}/{post_id}')      
+    form = PostForm(instance=post)
+    return render(request, 'post_edit.html', {'form': form, 'title': title, 'btn_caption': btn_caption, 'post': post})
 
 @login_required
 def new_post(request):
@@ -34,7 +58,7 @@ def new_post(request):
         post.save()
         return redirect("index")
     form = PostForm()
-    return render(request, "post_edit.html", {"form": form, "title": title, "btn_caption": btn_caption})
+    return render(request, "post_new.html", {"form": form, "title": title, "btn_caption": btn_caption})
 
 # view-функция для страницы сообщества
 def group_posts(request, slug):
@@ -45,9 +69,6 @@ def group_posts(request, slug):
     posts = Post.objects.filter(group=group).order_by("-pub_date")[:12]
     return render(request, "group.html", {"group": group, "posts": posts})
 
-# def index(request):
-#     latest = Post.objects.order_by("-pub_date")[:11]
-#     return render(request, "index.html", {"posts": latest})
 
 def index(request):
         post_list = Post.objects.order_by('-pub_date').all()
