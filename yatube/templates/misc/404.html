@@ -1,0 +1,15 @@
+{% extends "base.html" %} 
+{% block title %} Ошибка 404 {% endblock %}
+{% block content %}
+
+<main role="main" class="container">
+<div class="row">
+    <div class="col-md-12">
+        <h1>Ошибка 404</h1>
+        <p class="lead">Страница <code>{{ path }}</code> не найдена</p>
+        <p class="lead"><a href="{% url  "index"%}">Вернуться на главную</a></p>
+    </div>
+</div>
+</main>
+
+{% endblock %}

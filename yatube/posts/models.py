@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 class Group(models.Model):
     title = models.CharField(max_length=200, verbose_name="Название группы",
                              null=False)
@@ -13,6 +14,7 @@ class Group(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class Post(models.Model):
     text = models.TextField(verbose_name="Текст поста")
@@ -24,9 +26,11 @@ class Post(models.Model):
     # Возможность в посте ссылаться на группу.
     # Чтобы пост не пропал при удалении группы задаем SET_NULL.
     # '''
-    group = models.ForeignKey(Group, on_delete=models.SET_NULL,
+    group = models.ForeignKey(Group, on_delete=models.CASCADE,
                               verbose_name="Тег группы",
-                              related_name="posts", blank=True, null=True)
+                              related_name='group_posts', blank=True, null=True)
+
+    image = models.ImageField(upload_to='posts/', blank=True, null=True)
 
     def __str__(self):
        return self.text

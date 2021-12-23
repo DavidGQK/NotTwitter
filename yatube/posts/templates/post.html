@@ -34,6 +34,10 @@
 
                 {% if post %}
                     <div class="card mb-3 mt-1 shadow-sm">
+                        {% load thumbnail %}
+                        {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
+                            <img class="card-img" src="{{ im.url }}">
+                        {% endthumbnail %}
                             <div class="card-body">
                                     <p class="card-text">
                                             <a href="/{{profile.username}}/"><strong class="d-block text-gray-dark">@{{profile.username}}</strong></a>

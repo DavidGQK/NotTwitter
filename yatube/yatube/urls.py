@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.contrib.flatpages import views
+from django.conf.urls import handler404, handler500
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
         # раздел администратора
@@ -29,12 +33,11 @@ urlpatterns = [
         path('', include('posts.urls')),
         path('about-author/', views.flatpage, {'url': '/about-author/'}, name='about-author'),
         path('about-spec/', views.flatpage, {'url': '/about-spec/'}, name='about-spec')
-        # path('about-author/', include('django.contrib.flatpages.urls')),
-        # path('about-spec/', include('django.contrib.flatpages.urls')),
 ]
 
-# добавим новые пути
-# urlpatterns += [
-#         path('about-author/', views.flatpage, {'url': '/about-author/'}, name='about-author'),
-#         path('about-spec/', views.flatpage, {'url': '/about-spec/'}, name='about-spec')
-# ]
+handler404 = "posts.views.page_not_found"
+handler500 = "posts.views.server_error"
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
