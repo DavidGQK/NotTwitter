@@ -1,71 +1,26 @@
 {% extends "base.html" %}
-{% block title %} {{profile.get_full_name}} {% endblock %}
+{% block title %}{{ page|yesno:"Профиль, Запись" }}{% endblock %}
+{% block header %}{{ page|yesno:"Профиль, Запись" }}{% endblock %}
+{% load user_filters %}
 {% block content %}
-
-<main role="main" class="container">
-    <div class="row">
-            <div class="col-md-3 mb-3 mt-1">
-
-                    <div class="card">
-                            <div class="card-body">
-                                    <div class="h2 text">
-                                        <legend class="h2">{{profile.get_full_name}}</legend>
-                                    </div>
-                                    <div class="h3 text-muted">
-                                         @{{profile.username}}
-                                    </div>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                    <li class="list-group-item" style="background-color:#31383E;">
-                                            <div class="h6 text-muted">
-                                            Подписчиков: XXX <br />
-                                            Подписан: XXX
-                                            </div>
-                                    </li>
-                                    <li class="list-group-item" style="background-color:#31383E;">
-                                            <div class="h6 text-muted">
-                                                Записей: {{posts_count}}
-                                            </div>
-                                    </li>
-                            </ul>
-                    </div>
-            </div>
-
+    <main role="main" class="container">
+        {% if page %}
+        <div class="row">
+        {% include "includes/author_card.html" %}
             <div class="col-md-9">
-
-                {% for post in page %}
-                    <div class="card mb-3 mt-1 shadow-sm">
-                        {% load thumbnail %}
-                        {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
-                            <img class="card-img" src="{{ im.url }}">
-                        {% endthumbnail %}
-                            <div class="card-body">
-                                    <p class="card-text">
-                                            <a href="/{{profile.username}}/"><strong class="d-block text-gray-dark">@{{profile.username}}</strong></a>
-                                            {{ post.text|linebreaksbr }}
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group ">
-                                                    <a class="btn btn-sm btn-primary" href="/{{profile.username}}/{{post.id}}/" role="button">Добавить комментарий</a>
-                                                    {% if profile.username == user.username %}
-                                                    <a class="btn btn-sm btn-primary" href="/{{profile.username}}/{{post.id}}/edit" role="button">Редактировать</a>
-                                                    <a class="btn btn-sm btn-primary" href="/{{profile.username}}/{{post.id}}/delete" role="button">Удалить</a>
-                                                    {% endif %}
-                                            </div>                                            
-                                            <small class="text-muted">{{ post.pub_date|date:"d M Y H:i" }}</small>
-                                    </div>
-                            </div>
-                    </div>
-                {% endfor %}
-
-                {% if page.has_other_pages %}
-                        {% include "paginator.html" with items=page paginator=paginator%}
-                {% endif %}
-
-     </div>
-    </div>
-</main>
-
-
-
+            {% for post in page %}
+                {% include "post_item.html" with post=post author=author %}
+            {% endfor %}
+            {% if page.has_other_pages %}
+                {% include "includes/paginator.html" with items=page paginator=paginator %}
+            {% endif %}
+            </div>
+        </div>
+        {% elif post %}
+        <div>
+        {% include "post_item.html" %}
+        {% include "includes/post_comments.html" with form_comment=form_comment comments=post.comments.all %}
+        </div>
+        {% endif %}
+    </main> 
 {% endblock %}

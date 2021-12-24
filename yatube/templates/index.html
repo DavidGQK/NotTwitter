@@ -1,23 +1,15 @@
 {% extends "base.html" %}
-{% block title %} Последние обновления {% endblock %}
+{% block title %}Последние обновления на сайте{% endblock %}
+{% block header %}Последние обновления на сайте{% endblock %}
 {% block content %}
-
+    <div class="container">
+        {% include 'includes/menu.html' with index=True %}
     {% for post in page %}
-    <div class="bs-docs-section">
-    <h3>
-        Автор: {{ post.author.get_full_name }}, Дата публикации: {{ post.pub_date|date:"d M Y" }}
-    </h3>
-    {% load thumbnail %}
-    {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
-        <img class="card-img" src="{{ im.url }}">
-    {% endthumbnail %}
-    <p>{{ post.text|linebreaksbr }}</p>
-    <hr>
-    </div>
+        {% include "post_item.html" with post=post %}
     {% endfor %}
-
     {% if page.has_other_pages %}
-        {% include "paginator.html" with items=page paginator=paginator%}
+        {% include "includes/paginator.html" with items=page paginator=paginator %}
     {% endif %}
+    </div>
 
 {% endblock %}

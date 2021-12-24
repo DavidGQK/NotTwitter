@@ -1,13 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Записи сообщества {{ group }}{% endblock %}
-{% block header %}{{ group }}{% endblock %}
+{% block title %}Подписки: последние обновления{% endblock %}
+{% block header %}Подписки: последние обновления{% endblock %}
 {% block content %}
-    {{ group.description|linebreaks }}
+    <div class="container">
+        {% include 'includes/menu.html' with follow=True %}
     {% for post in page %}
         {% include "post_item.html" with post=post %}
     {% endfor %}
-
     {% if page.has_other_pages %}
         {% include "includes/paginator.html" with items=page paginator=paginator %}
     {% endif %}
+    </div>
+
 {% endblock %}
