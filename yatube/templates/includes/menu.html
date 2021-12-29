@@ -1,11 +1,11 @@
 {% if user.is_authenticated %} 
-<div class="row">
+<div class="row-md-12">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link {% if index %}active{% endif %}" href="{% url 'index' %}">Все авторы</a>
+            <a class="nav-link {% if index %}active{% endif %}" href="{% url 'index' %}">Все посты</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {% if follow %}active{% endif %}" href="{% url 'follow_index' %}">Избранные авторы</a>
+            <a class="nav-link {% if follow %}active{% endif %}" href="{% url 'follow_index' %}">Моя лента</a>
         </li>
     </ul>
 </div>

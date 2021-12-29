@@ -17,9 +17,9 @@
         {% endif %}
         <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group ">
-                <a class="btn btn-sm text-muted" href="{% url 'post' post.author.username post.id %}" role="button">Добавить комментарий</a>
+                <a class="btn btn-sm btn-primary mr-2" href="{% url 'post' post.author.username post.id %}" role="button">Добавить комментарий</a>
                 {% if request.user == post.author %}
-                        <a class="btn btn-sm text-muted" href="{% url 'post_edit' post.author.username post.id%}" role="button">Редактировать</a>
+                        <a class="btn btn-sm btn-primary" href="{% url 'post_edit' post.author.username post.id%}" role="button">Редактировать</a>
                 {% endif %}
                 </div>
                 <small class="text-muted">Дата публикации: {{ post.pub_date|date:"d M Y" }}</small>

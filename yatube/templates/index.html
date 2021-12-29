@@ -2,14 +2,27 @@
 {% block title %}Последние обновления на сайте{% endblock %}
 {% block header %}Последние обновления на сайте{% endblock %}
 {% block content %}
+
     <div class="container">
-        {% include 'includes/menu.html' with index=True %}
-    {% for post in page %}
-        {% include "post_item.html" with post=post %}
-    {% endfor %}
-    {% if page.has_other_pages %}
-        {% include "includes/paginator.html" with items=page paginator=paginator %}
-    {% endif %}
+        <div class="row">
+            <div class="col">
+            {% include 'includes/menu.html' with index=True %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+            {% for post in page %}
+                {% include "post_item.html" with post=post %}
+            {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+            {% if page.has_other_pages %}
+                {% include "includes/paginator.html" with items=page paginator=paginator %}
+            {% endif %}
+            </div>
+        </div>
     </div>
 
 {% endblock %}

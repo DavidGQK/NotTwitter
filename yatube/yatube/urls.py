@@ -22,17 +22,13 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-        # раздел администратора
+        path('about-author/', views.flatpage, {'url': '/about-author/'}, name='about-author'),
+        path('about-spec/', views.flatpage, {'url': '/about-spec/'}, name='about-spec'),
         path('admin/', admin.site.urls),
-        # flatpages
         path('about/', include('django.contrib.flatpages.urls')),
-        # регистрация и авторизация
         path('auth/', include('users.urls')),
         path('auth/', include('django.contrib.auth.urls')),
-        # импорт из приложения posts
         path('', include('posts.urls')),
-        path('about-author/', views.flatpage, {'url': '/about-author/'}, name='about-author'),
-        path('about-spec/', views.flatpage, {'url': '/about-spec/'}, name='about-spec')
 ]
 
 handler404 = "posts.views.page_not_found"  # noqa
