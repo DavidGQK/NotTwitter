@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Post, Group, Follow
@@ -73,16 +74,6 @@ def profile(request, username):
     return render(request, 'profile.html', {'page': page, 'paginator': paginator, 'author': author, 'subscribe': subscribe})
 
 
-# @login_required
-# def post_view(request, username, post_id):
-#     profile = get_object_or_404(User, username=username)
-#     post = get_object_or_404(Post, pk=post_id)
-#     post_list = Post.objects.filter(author = profile).order_by('-pub_date').all()
-#     posts_count = post_list.count()
-#     context = {'profile': profile, 'post': post, 'posts_count': posts_count}
-#     form = PostForm(request.POST or None, files=request.FILES or None, instance=post)
-#     return render(request, "post.html", context)
-
 @login_required
 def post(request, username, post_id):
     post = get_object_or_404(Post, author__username=username, id=post_id)
@@ -102,6 +93,14 @@ def post_edit(request, username, post_id):
         form.save()
         return redirect('post', username, post_id)
     return render(request, 'new_post.html', {'post': post, 'form': form, 'title': title, 'btn_caption': btn_caption})
+
+
+@login_required
+def post_delete(request, username, post_id):
+    post = get_object_or_404(Post, author__username=username, id=post_id)
+    print(request.get_full_path())
+    post.delete()
+    return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
 
 
 @login_required
@@ -132,7 +131,3 @@ def index(request):
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
     return render(request, 'index.html', {'page': page, 'paginator': paginator})
-        
-        
-        
-        
