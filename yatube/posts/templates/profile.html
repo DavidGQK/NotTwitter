@@ -21,6 +21,8 @@
         {% include "post_item.html" %}
         {% include "includes/post_comments.html" with form_comment=form_comment comments=post.comments.all %}
         </div>
+        {% elif not page %}
+        {% include "includes/author_card.html" %}
         {% endif %}
     </main> 
 {% endblock %}

@@ -100,7 +100,11 @@ def post_delete(request, username, post_id):
     post = get_object_or_404(Post, author__username=username, id=post_id)
     print(request.get_full_path())
     post.delete()
-    return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+    req = request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found')
+    if username in req:
+        return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+    else:
+        return redirect('index')
 
 
 @login_required
