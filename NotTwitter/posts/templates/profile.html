@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ page|yesno:"Профиль, Запись" }}{% endblock %}
+{% block header %}{{ page|yesno:"Профиль, Запись" }}{% endblock %}
+{% load user_filters %}
+{% block content %}
+    <main role="main" class="container">
+        {% if page %}
+        <div class="row">
+        {% include "includes/author_card.html" %}
+            <div class="col-md-9">
+            {% for post in page %}
+                {% include "post_item.html" with post=post author=author %}
+            {% endfor %}
+            {% if page.has_other_pages %}
+                {% include "includes/paginator.html" with items=page paginator=paginator %}
+            {% endif %}
+            </div>
+        </div>
+        {% elif post %}
+        <div>
+        {% include "post_item.html" %}
+        {% include "includes/post_comments.html" with form_comment=form_comment comments=post.comments.all %}
+        </div>
+        {% elif not page %}
+        {% include "includes/author_card.html" %}
+        {% endif %}
+    </main> 
+{% endblock %}
