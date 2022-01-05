@@ -1,2 +1,2 @@
-# yatube
-a bloggers social network
+# NotTwitter
+a bloggers social network (training project)

@@ -1,9 +1,0 @@
-{% if subscribe %}
-<a class="btn btn-lg btn-light" href="{% url 'profile_unfollow' author.username %}" role="button"> 
-Отписаться 
-</a> 
-{% else %}
-<a class="btn btn-lg btn-primary" href="{% url 'profile_follow' author.username %}" role="button">
-Подписаться 
-</a>
-{% endif %}
