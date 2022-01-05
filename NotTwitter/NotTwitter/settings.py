@@ -92,27 +92,28 @@ WSGI_APPLICATION = 'NotTwitter.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 # db_from_env = dj_database_url.config(conn_max_age=600)
 # DATABASES['default'].update(db_from_env)
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'd6ai9ef1kj2kpi',
-#         'HOST': 'ec2-54-196-65-186.compute-1.amazonaws.com',
-#         'PORT': 5432,
-#         'USER': 'usugtzgrkmuffb',
-#         'PASSWORD': '272f327fe7eeff46ad855a736f6e44a891514a9b376122e14270f905924d7128'
-#     }
-# }
-#postgres://usugtzgrkmuffb:272f327fe7eeff46ad855a736f6e44a891514a9b376122e14270f905924d7128@ec2-54-196-65-186.compute-1.amazonaws.com:5432/d6ai9ef1kj2kpi
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dal6o3838a9rod',
+        'HOST': 'ec2-52-208-229-228.eu-west-1.compute.amazonaws.com',
+        'PORT': 5432,
+        'USER': 'czmmmufwwwfrpu',
+        'PASSWORD': '814ac559c7770ce29fc598629c9552217eff7cb1b7b0be0b0f316f3866900589'
+    }
+}
+# postgres://czmmmufwwwfrpu:814ac559c7770ce29fc598629c9552217eff7cb1b7b0be0b0f316f3866900589@ec2-52-208-229-228.eu-west-1.compute.amazonaws.com:5432/dal6o3838a9rod
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -171,3 +172,5 @@ CACHES = {
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
