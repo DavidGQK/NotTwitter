@@ -21,13 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '3737-d-43tsm1a*0h^9se%#r*rxw6$%un1fcu2+cnqz1inbh(p'
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "0.0.0.0",
+    "0.0.0.0"
     "localhost",
     "127.0.0.1",
     "[::1]",
@@ -64,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
@@ -92,7 +92,6 @@ WSGI_APPLICATION = 'NotTwitter.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# for local production
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -100,20 +99,20 @@ DATABASES = {
     }
 }
 
-# for heroku production
-# example for fill in:
-# postgres://czmmmufwwwfrpu:814ac559c7770ce29fc598629c9552217eff7cb1b7b0be0b0f316f3866900589@ec2-52-208-229-228.eu-west-1.compute.amazonaws.com:5432/dal6o3838a9rod
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'dal6o3838a9rod',
-#         'HOST': 'ec2-52-208-229-228.eu-west-1.compute.amazonaws.com',
+#         'NAME': 'd6ai9ef1kj2kpi',
+#         'HOST': 'ec2-54-196-65-186.compute-1.amazonaws.com',
 #         'PORT': 5432,
-#         'USER': 'czmmmufwwwfrpu',
-#         'PASSWORD': '814ac559c7770ce29fc598629c9552217eff7cb1b7b0be0b0f316f3866900589'
+#         'USER': 'usugtzgrkmuffb',
+#         'PASSWORD': '272f327fe7eeff46ad855a736f6e44a891514a9b376122e14270f905924d7128'
 #     }
 # }
-
+#postgres://usugtzgrkmuffb:272f327fe7eeff46ad855a736f6e44a891514a9b376122e14270f905924d7128@ec2-54-196-65-186.compute-1.amazonaws.com:5432/d6ai9ef1kj2kpi
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -149,7 +148,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Login
