@@ -21,15 +21,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '3737-d-43tsm1a*0h^9se%#r*rxw6$%un1fcu2+cnqz1inbh(p'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    "0.0.0.0",
     "localhost",
     "127.0.0.1",
     "[::1]",
     "testserver",
+    "notliketwitter.herokuapp.com",
+    "*"
 ]
 
 # Идентификатор текущего сайта
@@ -49,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -59,8 +64,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'NotTwitter.urls'
@@ -87,12 +92,28 @@ WSGI_APPLICATION = 'NotTwitter.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# for heroku production
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# for local production
+# example for filliong in:
+# postgres://usugtzgrkmuffb:272f327fe7eeff46ad855a736f6e44a891514a9b376122e14270f905924d7128@ec2-54-196-65-186.compute-1.amazonaws.com:5432/d6ai9ef1kj2kpi
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'd6ai9ef1kj2kpi',
+#         'HOST': 'ec2-54-196-65-186.compute-1.amazonaws.com',
+#         'PORT': 5432,
+#         'USER': 'usugtzgrkmuffb',
+#         'PASSWORD': '272f327fe7eeff46ad855a736f6e44a891514a9b376122e14270f905924d7128'
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -130,6 +151,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Login
 LOGIN_URL = "/auth/login/"
