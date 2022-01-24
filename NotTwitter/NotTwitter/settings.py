@@ -31,7 +31,8 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "[::1]",
     "testserver",
-    "notliketwitter.herokuapp.com",
+# for heroku production input name of the project
+    "PROJECT_NAME.herokuapp.com",
     "*"
 ]
 
@@ -63,7 +64,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
@@ -92,27 +92,28 @@ WSGI_APPLICATION = 'NotTwitter.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-# db_from_env = dj_database_url.config(conn_max_age=600)
-# DATABASES['default'].update(db_from_env)
-
+# for local start
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dal6o3838a9rod',
-        'HOST': 'ec2-52-208-229-228.eu-west-1.compute.amazonaws.com',
-        'PORT': 5432,
-        'USER': 'czmmmufwwwfrpu',
-        'PASSWORD': '814ac559c7770ce29fc598629c9552217eff7cb1b7b0be0b0f316f3866900589'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-# postgres://czmmmufwwwfrpu:814ac559c7770ce29fc598629c9552217eff7cb1b7b0be0b0f316f3866900589@ec2-52-208-229-228.eu-west-1.compute.amazonaws.com:5432/dal6o3838a9rod
+
+# for heroku deploy
+
+# server example 
+# postgres://czmmmufwwwfrpu:114ac559c7770ce29fc598629c9552217eff7cb1b7b0be0b0f316f3866900589@ec2-52-208-229-228.eu-west-1.compute.amazonaws.com:5432/dal6o3838a9rod
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'dal6o3838a9rod',
+#         'HOST': 'ec2-52-208-229-228.eu-west-1.compute.amazonaws.com',
+#         'PORT': 5432,
+#         'USER': 'czmmmufwwwfrpu',
+#         'PASSWORD': '114ac559c7770ce29fc598629c9552217eff7cb1b7b0be0b0f316f3866900589'
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
