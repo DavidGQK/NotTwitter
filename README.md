@@ -57,4 +57,4 @@ Open **Settings.py** in `Project/NotTwitter/NotTwitter`
 3. Uncomment **Database** variable for Heroku deploy
 4. Change **Database** variable for your server settings by example in code
 5. Run ```waitress-serve --listen=*:8000 NotTwitter.wsgi:application```
-6. If anything is alright you can start deploying with an official Heroku instruction
+6. If everything is alright you can start deploying with an official Heroku instruction
