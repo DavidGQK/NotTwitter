@@ -1,11 +1,10 @@
-# NotTwitter is a social blogger platform [It is a pet project!]
+# NotTwitter is a social blogger platform<br/> [It is a pet project!]
 
 ## How to transfer to your computer
 
 1. Create folder "Project"
 2. Clone GitHub repository
 3. You are awesome!
-
 
 ## Quick local start [for Windows]
 
