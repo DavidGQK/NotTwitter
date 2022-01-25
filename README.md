@@ -12,6 +12,7 @@
 in `Project/NotTwitter`
 ```
 python -m venv venv
+source venv/Scripts/activate
 ```
 in `Project/NotTwitter/NotTwitter`
 ```
