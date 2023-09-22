@@ -1,4 +1,4 @@
-# NotTwitter is a social blogger platform<br/> [It is a pet project!]
+# NotTwitter is a social blogger platform<br/>
 
 ## How to transfer to your computer
 
