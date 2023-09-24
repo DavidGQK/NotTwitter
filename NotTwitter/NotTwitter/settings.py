@@ -103,7 +103,7 @@ DATABASES = {
 # for heroku deploy
 
 # server example 
-# postgres://czmmmufwwwfrpu:114ac559c7770ce29fc598629c9552217eff7cb1b7b0be0b0f316f3866900589@ec2-52-208-229-228.eu-west-1.compute.amazonaws.com:5432/dal6o3838a9rod
+# postgres://czmmmufwwwfrpu:@ec2-52-208-229.eu-west-1.compute.amazonaws.com:5432/dal6o3838a9rod
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
@@ -111,7 +111,7 @@ DATABASES = {
 #         'HOST': 'ec2-52-208-229-228.eu-west-1.compute.amazonaws.com',
 #         'PORT': 5432,
 #         'USER': 'czmmmufwwwfrpu',
-#         'PASSWORD': '114ac559c7770ce29fc598629c9552217eff7cb1b7b0be0b0f316f3866900589'
+#         'PASSWORD': ''
 #     }
 # }
 
